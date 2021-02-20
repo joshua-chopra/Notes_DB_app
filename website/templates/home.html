@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %}
+{% block content %}
+
+    <h1 align="center">Notes</h1>
+    <ul class="list-group list-group-flush" id="notes">
+        {# recall, relationship set notes is an attribute of User class. #}
+        {% for note in user.notes %}
+            {# display user's notes in a list format #}
+            <li class="list-group-item">
+                {{ note.data }}
+                {# button to delete notes. call deleteNote event handler if "x" is clicked by user  #}
+                <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </li>
+        {% endfor %}
+    </ul>
+    <form method="POST">
+        <textarea name="note" id="note" class="form-control"></textarea>
+        <br/>
+        <div align="center">
+            <button type="submit" class="btn btn-primary">Add Note</button>
+        </div>
+    </form>
+    <div>
+        <form style="margin: 100px" action="https://google.com/search" target="_blank" type="GET" placeholder="Enter text">
+            <label>
+                Perform a quick google search while note-taking!
+                <input type="search" name="q">
+            </label>
+            <input type="submit" value="Go">
+        </form>
+    </div>
+
+{% endblock %}
