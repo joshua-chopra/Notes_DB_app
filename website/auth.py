@@ -78,6 +78,10 @@ Return information from form (email, first name, password) or empty dict if noth
 def validate_sign_up_info(message: request) -> dict:
     # get attributes from form
     email = request.form.get('email')
+    # address case of user attempting to sign up again to avoid attempting duplicate insert into db.
+    if User.query.filter_by(email=email).first():
+        flash('You already have an account! Please login.', category='error')
+        return {}
     first_name = request.form.get('firstName')
     password1 = request.form.get('password1')
     password2 = request.form.get('password2')
